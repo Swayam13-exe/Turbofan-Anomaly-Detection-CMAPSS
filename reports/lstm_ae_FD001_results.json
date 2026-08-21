@@ -1,0 +1,17 @@
+{
+  "mean_lead_time": 90.90243902439025,
+  "median_lead_time": 82.0,
+  "n_detected": 41,
+  "n_missed": 59,
+  "miss_rate": 0.59,
+  "precision": 0.07909967845659165,
+  "recall": 1.0,
+  "f1": 0.14660309892729442,
+  "false_positive_rate": 0.1421622158244813,
+  "tp": 123,
+  "fp": 1432,
+  "fn": 0,
+  "tn": 8641,
+  "threshold": 0.578798770904541,
+  "window_size": 30
+}
