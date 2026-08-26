@@ -80,3 +80,26 @@ class PCADetector:
         each component's variance."""
         scores = self.transform(X)
         return np.sum((scores ** 2) / self.explained_variance_, axis=1)
+
+    def save(self, path: str):
+        import pickle
+        with open(path, "wb") as f:
+            pickle.dump({
+                "n_components": self.n_components,
+                "mean_": self.mean_,
+                "components_": self.components_,
+                "explained_variance_": self.explained_variance_,
+                "k_": self.k_,
+            }, f)
+
+    @classmethod
+    def load(cls, path: str) -> "PCADetector":
+        import pickle
+        with open(path, "rb") as f:
+            state = pickle.load(f)
+        detector = cls(n_components=state["n_components"])
+        detector.mean_ = state["mean_"]
+        detector.components_ = state["components_"]
+        detector.explained_variance_ = state["explained_variance_"]
+        detector.k_ = state["k_"]
+        return detector
