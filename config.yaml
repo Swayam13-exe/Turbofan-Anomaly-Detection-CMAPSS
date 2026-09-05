@@ -1,0 +1,40 @@
+data:
+  fd: "FD001"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  healthy_fraction: 0.30   # fraction of each engine's life treated as "healthy" baseline
+  window_size: 30          # sliding window length (cycles) fed to the autoencoders
+
+pca_baseline:
+  n_components: 0.95       # retain enough components to explain 95% of healthy-data variance
+
+lstm_autoencoder:
+  hidden_size: 64
+  num_layers: 2
+  dropout: 0.2
+  learning_rate: 0.001
+  batch_size: 64
+  max_epochs: 50
+  early_stopping_patience: 7
+
+transformer_autoencoder:
+  d_model: 32
+  nhead: 4
+  num_layers: 2
+  dropout: 0.1
+  learning_rate: 0.001
+  batch_size: 64
+  max_epochs: 50
+  early_stopping_patience: 7
+
+evaluation:
+  anomaly_window: 20       # cycles before failure counted as the true "anomalous" period
+  threshold_percentile: 99.9 # reconstruction-error threshold = this percentile of HEALTHY errors
+  persistence_cycles: 3    # require this many consecutive cycles above threshold before counting a detection (filters noise-driven single-cycle spikes)
+
+huggingface:
+  repo_id: "yourusername/cmapss-anomaly-detection"  # update after upload_to_hf.py
+
+deployment:
+  fastapi_port: 8000
+  streamlit_port: 8501
